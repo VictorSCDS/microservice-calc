@@ -13,13 +13,30 @@ services:
     sub:
         build: sub
 
+    nmult1:
+    build: ./mult
+    expose:
+      - "8080"
+
+    mult2:
+    build: ./mult
+    expose:
+      - "8080"
+
+    mult-backup:
+    build: ./mult
+    expose:
+      - "8080"
+
     nginx:
-        container_name: nginx
-        build: nginx
-        ports:
-            - 8080:80
+    build: ./nginx
+    ports:
+      - "80:80"
         depends_on:
            - ping
            - calc
            - soma
            - sub
+           - mult1
+           - mult2
+           - mult-backup
